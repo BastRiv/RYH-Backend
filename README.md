@@ -1,7 +1,5 @@
-# DAPI 3.0.0
+# DAPI3 
 Base of API Rest with DjangoRestFramework + TokenAuthentication
-
-URL DOCS POSTMAN: [API DOCUMENTATION]()
 
 
 ## Getting Started
