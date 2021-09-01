@@ -39,6 +39,8 @@ DJANGO_APPS = (
 PROJECT_APPS = (
     'apps.api',
     'apps.users',
+    'apps.jobs',
+    'apps.directory',
     
 )
 
@@ -46,6 +48,7 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'djrichtextfield',
 )
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -127,3 +130,13 @@ MEDIA_ROOT = BASE_DIR.child('media')
 
 
 
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {
+        'menubar': False,
+        'plugins': 'link image',
+        # 'toolbar': 'bold italic | link image | removeformat',
+        'width': 700
+    }
+}

@@ -30,7 +30,8 @@ class UserManager(BaseUserManager, models.Manager):
 class User(AbstractBaseUser, PermissionsMixin):
 
     #general
-    username = models.CharField(max_length=100, unique=True)
+    id = models.BigAutoField(primary_key=True)
+    username = models.CharField(max_length=100, unique=True,)
     join_date = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
