@@ -41,9 +41,17 @@ urlpatterns = [
     path('job/', views.JobList.as_view()),  
     path('job/<pk>', views.JobDetail.as_view()),
     
+    path('job/apply/create/', views.JobApplyCreate.as_view()),  
     path('job/apply/', views.JobApplyList.as_view()),  
     path('job/apply/<pk>', views.JobApplyDetail.as_view()),
     
+    path('job/apply/check/', views.CheckApplyInProgress.as_view()),
+
+    path('job/question/', views.QuestionApplyList.as_view()),
+    path('job/question/<pk>', views.QuestionApplyDetail.as_view()),
+
+    path('job/answer/', views.AnswerApplyList.as_view()),
+    path('job/answer/<pk>', views.AnswerApplyDetail.as_view()),
  
 ]
 

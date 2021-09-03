@@ -118,12 +118,55 @@ class JobDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Job.objects.all()
 	serializer_class = JobSerializer
 
-class JobApplyList(generics.ListCreateAPIView):
+class JobApplyCreate(generics.CreateAPIView):
 	queryset = JobApply.objects.all()
+	serializer_class = JobApplyCreateSerializer
+	
+class JobApplyList(generics.ListCreateAPIView):
+	queryset = JobApply.objects.all().order_by('-date_apply')
 	serializer_class = JobApplySerializer
-
+	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+	search_fields = ['user','job']
+	filter_fields = ['user','job']
+	
 class JobApplyDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = JobApply.objects.all()
 	serializer_class = JobApplySerializer
+
+
+class CheckApplyInProgress(APIView):
+		def get(self,request):
+			user = request.user
+			# import pdb; pdb.set_trace()
+			job_apply = JobApply.objects.filter(user=user,job__pk=int(request.GET["id"]))
+			if job_apply.count() > 0:
+				return JsonResponse({'status':True})
+			else:
+				return JsonResponse({'status':False})
+
+class QuestionApplyList(generics.ListCreateAPIView):
+	queryset = QuestionApply.objects.all()
+	serializer_class = QuestionApplySerializer
+	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+	search_fields = ['job']
+	filter_fields = ['job']
+
+
+class QuestionApplyDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = QuestionApply.objects.all()
+	serializer_class = QuestionApplySerializer
+
+
+class AnswerApplyList(generics.ListCreateAPIView):
+	queryset = AnswerApply.objects.all()
+	serializer_class = AnswerApplySerializer
+	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+	search_fields = ['question','question__job']
+	filter_fields = ['question','question__job']
+
+
+class AnswerApplyDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = AnswerApply.objects.all()
+	serializer_class = AnswerApplySerializer
 
 

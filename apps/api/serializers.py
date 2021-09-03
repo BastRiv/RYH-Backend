@@ -154,7 +154,7 @@ class JobSerializer(ModelSerializer):
 
 		)
 
-class JobApplySerializer(ModelSerializer):
+class JobApplyCreateSerializer(ModelSerializer):
 	class Meta:		 
 		model = JobApply 
 		fields = (
@@ -163,10 +163,36 @@ class JobApplySerializer(ModelSerializer):
 			'user',
 		)
 
+class JobApplySerializer(ModelSerializer):
+	job = JobSerializer()
+	class Meta:		 
+		model = JobApply 
+		fields = (
+			'pk',
+			'job',
+			'user',
+			'date_apply'
+		)
 
+class QuestionApplySerializer(ModelSerializer):
+	class Meta:		 
+		model = QuestionApply
+		fields = (
+			'pk',
+			'label',
+			'job',
+			
+		)
 
-
-
+class AnswerApplySerializer(ModelSerializer):
+	class Meta:		 
+		model = AnswerApply
+		fields = (
+			'pk',
+			'question',
+			'user',
+			'value'
+		)
 
 
 

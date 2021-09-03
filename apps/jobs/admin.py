@@ -34,3 +34,18 @@ class JobAdmin(admin.ModelAdmin):
     list_filter = ('company',)
     search_fields = ('title', )
     ordering = ('-pk',)
+
+@admin.register(JobApply)
+class JobApplyAdmin(admin.ModelAdmin):
+    list_display = ('pk',)
+    ordering = ('-pk',)
+
+@admin.register(QuestionApply)
+class QuestionApplyAdmin(admin.ModelAdmin):
+    list_display = ('pk',)
+    ordering = ('-pk',)
+
+@admin.register(AnswerApply)
+class AnswerApplyAdmin(admin.ModelAdmin):
+    list_display = ('pk',)
+    ordering = ('-pk',)

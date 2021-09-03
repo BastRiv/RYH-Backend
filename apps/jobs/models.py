@@ -74,3 +74,19 @@ class JobApply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_apply = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(default=0)
+
+
+class QuestionApply(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    label = models.CharField(max_length=255)
+    is_req = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.label
+
+
+class AnswerApply(models.Model):
+    question = models.ForeignKey(QuestionApply, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    value = models.TextField()
+    date_answer = models.DateTimeField(auto_now_add=True)
