@@ -6,12 +6,12 @@ from .base import *
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'hiredone01db',
+    'USER': 'hiredoneuserpsql',
+    'PASSWORD': 'Hire2021DB01++$$',
+    'HOST': 'localhost',
+    'PORT': '5432',
     }
 }
 
