@@ -76,128 +76,112 @@ class UserSerializer(ModelSerializer):
 ##  SERIALIZERS MODULE DIRECTORY       ## 
 #########################################
 
-class CompanySerializer(ModelSerializer):
+class PropertySerializer(ModelSerializer):
 	class Meta:		 
-		model = Company 
+		model = Property 
 		fields = (
 			'pk',
 			'name',
-			'description',
 		)
 
-#########################################
-##  SERIALIZERS MODULE JOBS       ## 
-#########################################
-
-class CategorySerializer(ModelSerializer):
+class ServiceSerializer(ModelSerializer):
 	class Meta:		 
-		model = Category 
+		model = Service 
 		fields = (
 			'pk',
 			'name',
-			'description',
 		)
 
-class KeyResponsibilitySerializer(ModelSerializer):
+class ServicePropertySerializer(ModelSerializer):
 	class Meta:		 
-		model = KeyResponsibility 
+		model = ServiceProperty 
 		fields = (
 			'pk',
-			'name',
-			'description',
-		)
-
-class SkillJobsSerializer(ModelSerializer):
-	class Meta:		 
-		model = SkillJobs 
-		fields = (
-			'pk',
-			'name',
-			'description',
-		)
-
-class BenefitSerializer(ModelSerializer):
-	class Meta:		 
-		model = Benefit 
-		fields = (
-			'pk',
-			'img',
-			'name',
-			'description',
-		)
-
-class JobSerializer(ModelSerializer):
-	skills = SkillJobsSerializer(many=True)
-	keys = KeyResponsibilitySerializer(many=True)
-	benefit = BenefitSerializer(many=True)
-	category = CategorySerializer(read_only=True)
-	class Meta:		 
-		model = Job 
-		fields = (
-			'pk',
-			'title',
-			'company',
-			'category',
-			'tags',
-
-			'description',
-			'location',
-			'salary',
-			'type_contract',
-			'schedule',
-			'remote',
-
-			'keys',
-			'skills',
-			'benefit',
-
-
-		)
-
-class JobApplyCreateSerializer(ModelSerializer):
-	class Meta:		 
-		model = JobApply 
-		fields = (
-			'pk',
-			'job',
-			'user',
-		)
-
-class JobApplySerializer(ModelSerializer):
-	job = JobSerializer()
-	class Meta:		 
-		model = JobApply 
-		fields = (
-			'pk',
-			'job',
-			'user',
-			'date_apply'
-		)
-
-class QuestionApplySerializer(ModelSerializer):
-	class Meta:		 
-		model = QuestionApply
-		fields = (
-			'pk',
-			'label',
-			'job',
+			'property',
+			'service',
 			
 		)
 
-class AnswerApplySerializer(ModelSerializer):
+class ReservationSerializer(ModelSerializer):
 	class Meta:		 
-		model = AnswerApply
+		model = Reservation 
 		fields = (
 			'pk',
-			'question',
-			'user',
-			'value'
+			'code',
+			'property',
+			
 		)
 
+class TransactionSerializer(ModelSerializer):
+	class Meta:		 
+		model = Transaction 
+		fields = (
+			'pk',
+			'reservation',
+			'total',
+			'status',
+			'type_transaction',
+		)
 
+class ServicePropertyCheckInternalSerializer(ModelSerializer):
+	class Meta:		 
+		model = ServicePropertyCheckInternal 
+		fields = (
+			'pk',
+			'service_property',
+			'status',
+		)
 
+class ServicePropertyCheckINSerializer(ModelSerializer):
+	class Meta:		 
+		model = ServicePropertyCheckIN 
+		fields = (
+			'pk',
+			'reservation',
+			'service_property',
+			'status',
+		)
 
+class ServicePropertyCheckOUTSerializer(ModelSerializer):
+	class Meta:		 
+		model = ServicePropertyCheckOUT
+		fields = (
+			'pk',
+			'reservation',
+			'service_property',
+			'status',
+		)
 
+class ServiceTransferSerializer(ModelSerializer):
+	class Meta:		 
+		model = ServiceTransfer
+		fields = (
+			'pk',
+			'reservation',
+			'type_transfer',
+		)
 
+class ServiceTourSerializer(ModelSerializer):
+	class Meta:		 
+		model = ServiceTour
+		fields = (
+			'pk',
+			'reservation',
+		)
 
+class ServiceExtraListSerializer(ModelSerializer):
+	class Meta:		 
+		model = ServiceExtraList
+		fields = (
+			'pk',
+			'name',
+		)
 
+class ServiceExtraSerializer(ModelSerializer):
+	class Meta:		 
+		model = ServiceExtra
+		fields = (
+			'pk',
+			'service_extra',
+			'reservation',
+		)

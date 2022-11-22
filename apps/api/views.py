@@ -26,33 +26,6 @@ from apps.directory.models import *
 
 
 
-# TEST GENERATOR DATA
-
-class GenerateView(APIView):
-	def get(self,request):
-		initial = 10
-		limit = 10
-		for x in range(initial,initial+limit):
-			name_random = "Company "+str(x)
-			description_random = "es una empresa de "+str(x)
-			# Company.objects.create(name=name_random,description=description_random)
-			random_title = "Backend Developer " + str(x)
-			random_company = Company.objects.get(name=name_random)
-			random_category = Category.objects.get(pk=random.randint(1,3))
-			random_status = 0
-			random_description = "description " + str(x)
-			random_tags = "tags " + str(x)
-			Job.objects.create(
-				title = random_title,
-				company = random_company,
-				category = random_category,
-				status = random_status,
-				description = random_description,
-				tags = random_tags,
-			)
-		return HttpResponse(status=200)
-
-# 
 
 #####################################
 ##  VIEWS MODULE USERS            ## 
@@ -77,96 +50,102 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
 
- 
-#####################################
-##  VIEWS MODULE DIRECTORY         ## 
-#####################################
 
-class CompanyList(generics.ListCreateAPIView):
-	queryset = Company.objects.all()
-	serializer_class = CompanySerializer
+#
+
+class PropertyList(generics.ListCreateAPIView):
+	queryset = Property.objects.all()
+	serializer_class = PropertySerializer
 
 
-class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
-	queryset = Company.objects.all()
-	serializer_class = CompanySerializer
+class PropertyDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Property.objects.all()
+	serializer_class = PropertySerializer
 
-#####################################
-##  VIEWS MODULE JOBS             ## 
-#####################################
+class ServiceList(generics.ListCreateAPIView):
+	queryset = Service.objects.all()
+	serializer_class = ServiceSerializer
 
-class CategoryList(generics.ListCreateAPIView):
-	permission_classes = (AllowAny,)	
-	queryset = Category.objects.all()
-	serializer_class = CategorySerializer
+class ServiceDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Service.objects.all()
+	serializer_class = ServiceSerializer
 
-class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-	
-	queryset = Category.objects.all()
-	serializer_class = CategorySerializer
+class ServicePropertyList(generics.ListCreateAPIView):
+	queryset = ServiceProperty.objects.all()
+	serializer_class = ServicePropertySerializer
 
-class JobList(generics.ListCreateAPIView):
-	permission_classes = (AllowAny,)
-	queryset = Job.objects.all()
-	serializer_class = JobSerializer
-	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-	search_fields = ['title', 'description', 'tags']
-	filter_fields = ['category']
-	
-class JobDetail(generics.RetrieveUpdateDestroyAPIView):
-	permission_classes = (AllowAny,)
-	queryset = Job.objects.all()
-	serializer_class = JobSerializer
+class ServicePropertyDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServiceProperty.objects.all()
+	serializer_class = ServicePropertySerializer
 
-class JobApplyCreate(generics.CreateAPIView):
-	queryset = JobApply.objects.all()
-	serializer_class = JobApplyCreateSerializer
-	
-class JobApplyList(generics.ListCreateAPIView):
-	queryset = JobApply.objects.all().order_by('-date_apply')
-	serializer_class = JobApplySerializer
-	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-	search_fields = ['user','job']
-	filter_fields = ['user','job']
-	
-class JobApplyDetail(generics.RetrieveUpdateDestroyAPIView):
-	queryset = JobApply.objects.all()
-	serializer_class = JobApplySerializer
+class ReservationList(generics.ListCreateAPIView):
+	queryset = Reservation.objects.all()
+	serializer_class = ReservationSerializer
 
+class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Reservation.objects.all()
+	serializer_class = ReservationSerializer
 
-class CheckApplyInProgress(APIView):
-		def get(self,request):
-			user = request.user
-			# import pdb; pdb.set_trace()
-			job_apply = JobApply.objects.filter(user=user,job__pk=int(request.GET["id"]))
-			if job_apply.count() > 0:
-				return JsonResponse({'status':True})
-			else:
-				return JsonResponse({'status':False})
+class TransactionList(generics.ListCreateAPIView):
+	queryset = Transaction.objects.all()
+	serializer_class = TransactionSerializer
 
-class QuestionApplyList(generics.ListCreateAPIView):
-	queryset = QuestionApply.objects.all()
-	serializer_class = QuestionApplySerializer
-	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-	search_fields = ['job']
-	filter_fields = ['job']
+class TransactionDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Transaction.objects.all()
+	serializer_class = TransactionSerializer
 
+class ServicePropertyCheckInternalList(generics.ListCreateAPIView):
+	queryset = ServicePropertyCheckInternal.objects.all()
+	serializer_class = ServicePropertyCheckInternalSerializer
 
-class QuestionApplyDetail(generics.RetrieveUpdateDestroyAPIView):
-	queryset = QuestionApply.objects.all()
-	serializer_class = QuestionApplySerializer
+class ServicePropertyCheckInternalDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServicePropertyCheckInternal.objects.all()
+	serializer_class = ServicePropertyCheckInternalSerializer
 
+class ServicePropertyCheckINList(generics.ListCreateAPIView):
+	queryset = ServicePropertyCheckIN.objects.all()
+	serializer_class = ServicePropertyCheckINSerializer
 
-class AnswerApplyList(generics.ListCreateAPIView):
-	queryset = AnswerApply.objects.all()
-	serializer_class = AnswerApplySerializer
-	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-	search_fields = ['question','question__job']
-	filter_fields = ['question','question__job']
+class ServicePropertyCheckINDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServicePropertyCheckIN.objects.all()
+	serializer_class = ServicePropertyCheckINSerializer
 
+class ServicePropertyCheckOUTList(generics.ListCreateAPIView):
+	queryset = ServicePropertyCheckOUT.objects.all()
+	serializer_class = ServicePropertyCheckOUTSerializer
 
-class AnswerApplyDetail(generics.RetrieveUpdateDestroyAPIView):
-	queryset = AnswerApply.objects.all()
-	serializer_class = AnswerApplySerializer
+class ServicePropertyCheckOUTDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServicePropertyCheckOUT.objects.all()
+	serializer_class = ServicePropertyCheckOUTSerializer
 
+class ServiceTransferList(generics.ListCreateAPIView):
+	queryset = ServiceTransfer.objects.all()
+	serializer_class = ServiceTransferSerializer
 
+class ServiceTransferDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServiceTransfer.objects.all()
+	serializer_class = ServiceTransferSerializer
+
+class ServiceTourList(generics.ListCreateAPIView):
+	queryset = ServiceTour.objects.all()
+	serializer_class = ServiceTourSerializer
+
+class ServiceTourDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServiceTour.objects.all()
+	serializer_class = ServiceTourSerializer
+
+class ServiceExtraListList(generics.ListCreateAPIView):
+	queryset = ServiceExtraList.objects.all()
+	serializer_class = ServiceExtraListSerializer
+
+class ServiceExtraListDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServiceExtraList.objects.all()
+	serializer_class = ServiceExtraListSerializer
+
+class ServiceExtraList(generics.ListCreateAPIView):
+	queryset = ServiceExtra.objects.all()
+	serializer_class = ServiceExtraSerializer
+
+class ServiceExtraDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = ServiceExtra.objects.all()
+	serializer_class = ServiceExtraSerializer

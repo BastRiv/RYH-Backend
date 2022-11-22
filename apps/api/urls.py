@@ -27,31 +27,47 @@ urlpatterns = [
     path('users/', views.UserList.as_view()),  
     path('users/<pk>', views.UserDetail.as_view()),
 
-    #models directory
-    path('company/', views.CompanyList.as_view()),  
-    path('company/<pk>', views.CompanyDetail.as_view()),
-   
-    #models Job
-    path('company/', views.CompanyList.as_view()),  
-    path('company/<pk>', views.CompanyDetail.as_view()),
+    path('property/', views.PropertyList.as_view()),  
+    path('property/<pk>', views.PropertyDetail.as_view()),
 
-    path('category/', views.CategoryList.as_view()),  
-    path('category/<pk>', views.CategoryDetail.as_view()),
+    path('service/', views.ServiceList.as_view()),  
+    path('service/<pk>', views.ServiceDetail.as_view()),
 
-    path('job/', views.JobList.as_view()),  
-    path('job/<pk>', views.JobDetail.as_view()),
+    path('property/service/', views.ServicePropertyList.as_view()),  
+    path('property/service/<pk>', views.ServicePropertyDetail.as_view()),
+
+    path('property/reservation/', views.ReservationList.as_view()),  
+    path('property/reservation/<pk>', views.ReservationDetail.as_view()),
+
+    path('property/reservation/transaction', views.TransactionList.as_view()),  
+    path('property/reservation/transaction/<pk>', views.TransactionDetail.as_view()),
+
+    path('property/check/', views.ServicePropertyCheckInternalList.as_view()),  
+    path('property/check/<pk>', views.ServicePropertyCheckInternalDetail.as_view()),
+
+
+    path('property/reservation/check/checkin', views.ServicePropertyCheckINList.as_view()),  
+    path('property/reservation/check/checkin/<pk>', views.ServicePropertyCheckINDetail.as_view()),
+
+    path('property/reservation/check/checkout', views.ServicePropertyCheckOUTList.as_view()),  
+    path('property/reservation/check/checkout/<pk>', views.ServicePropertyCheckOUTDetail.as_view()),
+
+
+    path('property/reservation/service/transfer', views.ServiceTransferList.as_view()),  
+    path('property/reservation/service/transfer/<pk>', views.ServiceTransferDetail.as_view()),
+
     
-    path('job/apply/create/', views.JobApplyCreate.as_view()),  
-    path('job/apply/', views.JobApplyList.as_view()),  
-    path('job/apply/<pk>', views.JobApplyDetail.as_view()),
-    
-    path('job/apply/check/', views.CheckApplyInProgress.as_view()),
+    path('property/reservation/service/tour', views.ServiceTourList.as_view()),  
+    path('property/reservation/service/tour/<pk>', views.ServiceTourList.as_view()),
 
-    path('job/question/', views.QuestionApplyList.as_view()),
-    path('job/question/<pk>', views.QuestionApplyDetail.as_view()),
 
-    path('job/answer/', views.AnswerApplyList.as_view()),
-    path('job/answer/<pk>', views.AnswerApplyDetail.as_view()),
+    path('property/reservation/service/extra_list', views.ServiceExtraListList.as_view()),  
+    path('property/reservation/service/extra_list/<pk>', views.ServiceExtraListDetail.as_view()),
+
+
+    path('property/reservation/service/extra', views.ServiceExtraList.as_view()),  
+    path('property/reservation/service/extra/<pk>', views.ServiceExtraDetail.as_view()),
+ 
  
 ]
 
