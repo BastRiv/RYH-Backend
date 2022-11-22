@@ -17,7 +17,6 @@ from . import views
  
 
 urlpatterns = [
-    path('generate/', views.GenerateView.as_view()),
     #custom
     path('auth/', obtain_auth_token), #login
     path('register/', views.UserCreate.as_view()),

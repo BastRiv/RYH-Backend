@@ -39,7 +39,6 @@ DJANGO_APPS = (
 PROJECT_APPS = (
     'apps.api',
     'apps.users',
-    'apps.jobs',
     'apps.directory',
     
 )

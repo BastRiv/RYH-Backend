@@ -49,7 +49,7 @@ case $option in
   ;;
   0) 
      echo "RUN WITH DEBUG CONSOLE (DEV)..."
-     python3 manage.py runserver 0.0.0.0:8000 --settings=dapi.settings.local
+     python3 manage.py runserver 0.0.0.0:8111 --settings=dapi.settings.local
   ;;
   1)
      echo "RUN AUTO LOCAL MIGRATIONS..."

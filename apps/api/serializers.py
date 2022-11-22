@@ -9,7 +9,6 @@ from drf_extra_fields.fields import Base64ImageField
 #models
 from apps.users.models import *
 from apps.directory.models import *
-from apps.jobs.models import *
 
 #
 from django.core.mail import send_mail
