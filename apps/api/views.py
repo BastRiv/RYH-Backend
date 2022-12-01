@@ -82,6 +82,10 @@ class ReservationList(generics.ListCreateAPIView):
 	queryset = Reservation.objects.all()
 	serializer_class = ReservationSerializer
 
+	def post(self, request, *args, **kwargs):
+		
+		return super().post(request, *args, **kwargs)
+
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Reservation.objects.all()
 	serializer_class = ReservationSerializer
