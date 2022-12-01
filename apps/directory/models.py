@@ -15,7 +15,7 @@ class Service(models.Model):
 class ServiceProperty(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-
+        
 
 class Reservation(models.Model):
     code = models.CharField(max_length=9)
