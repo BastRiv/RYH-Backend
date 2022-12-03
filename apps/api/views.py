@@ -58,6 +58,7 @@ class PropertyList(generics.ListCreateAPIView):
 	serializer_class = PropertySerializer
 
 
+
 class PropertyDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Property.objects.all()
 	serializer_class = PropertySerializer
@@ -81,10 +82,9 @@ class ServicePropertyDetail(generics.RetrieveUpdateDestroyAPIView):
 class ReservationList(generics.ListCreateAPIView):
 	queryset = Reservation.objects.all()
 	serializer_class = ReservationSerializer
-
-	def post(self, request, *args, **kwargs):
-		
-		return super().post(request, *args, **kwargs)
+	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+	search_fields = ['code', 'property', 'user']
+	filter_fields = ['code','property','user']
 
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Reservation.objects.all()

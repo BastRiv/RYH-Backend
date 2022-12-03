@@ -6,6 +6,12 @@ from apps.users.models import User
 class Property(models.Model):
     name = models.CharField(max_length=70)
     status = models.IntegerField(default=0) # 0 - Disponible 1- No disponible 2- Ocupado 3- Reservado 4- Ocupado actualmente 5-Limpieza 6- Mantencion
+    image_1 = models.ImageField(upload_to="property")
+    image_2 = models.ImageField(upload_to="property")
+    image_3 = models.ImageField(upload_to="property")
+    image_4 = models.ImageField(upload_to="property")
+    description = models.CharField(max_length=300)
+    address = models.CharField(max_length=300)
 
     #other fields here
 

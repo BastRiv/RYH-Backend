@@ -81,6 +81,13 @@ class PropertySerializer(ModelSerializer):
 		fields = (
 			'pk',
 			'name',
+			'image_1',
+			'image_2',
+			'image_3',
+			'image_4',
+			'description',
+			'address',
+
 		)
 
 class ServiceSerializer(ModelSerializer):
