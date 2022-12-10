@@ -2,17 +2,26 @@ from django.db import models
 
 from apps.users.models import User
 
+from datetime import datetime    
+
+
 # Create your models here.
 class Property(models.Model):
     name = models.CharField(max_length=70)
-    status = models.IntegerField(default=0) # 0 - Disponible 1- No disponible 2- Ocupado 3- Reservado 4- Ocupado actualmente 5-Limpieza 6- Mantencion
+    status = models.IntegerField(default=0) # 0 - Disponible 1- No disponible 2- Reservado 3- Ocupado  4-Limpieza 5- Mantencion
     image_front_page = models.ImageField(upload_to="property_img", null=True, blank=True)
     image_1 = models.ImageField(upload_to="property_img",null=True,blank=True)
     image_2 = models.ImageField(upload_to="property_img",null=True,blank=True)
     image_3 = models.ImageField(upload_to="property_img",null=True,blank=True)
     image_4 = models.ImageField(upload_to="property_img",null=True,blank=True)
+    image_5 = models.ImageField(upload_to="property_img",null=True,blank=True)
+    image_6 = models.ImageField(upload_to="property_img",null=True,blank=True)
     description = models.CharField(max_length=300)
     address = models.CharField(max_length=300)
+    price= models.DecimalField(max_digits=10, decimal_places=0, default=0) 
+
+    def __str__(self):
+        return str(self.item) + ": $" + str(self.price)
 
     #other fields here
 
@@ -21,12 +30,15 @@ class Property(models.Model):
 
 class HistoryStatus(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.IntegerField(default=0) # 0 - Disponible 1- No disponible 2- Ocupado 3- Reservado 4- Ocupado actualmente 5-Limpieza 6- Mantencion
+    status = models.IntegerField(default=0) # 0 - Disponible 1- No disponible 2- Reservado 3- Ocupado actualmente 4-Limpieza 5- Mantencion
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
 
 
 class Service(models.Model):
     name = models.CharField(max_length=70)
+
+    def __str__(self):
+        return self.name
 
 
 class ServiceProperty(models.Model):
@@ -39,6 +51,8 @@ class Reservation(models.Model):
     code = models.CharField(max_length=9)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_date = models.DateField(default=datetime.now, blank=True)
+    end_date = models.DateField(default=datetime.now, blank=True)
 
     #other fields here
 
@@ -68,7 +82,7 @@ class ServicePropertyCheckOUT(models.Model):
 
 class ServiceTransfer(models.Model):
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
-    type_transfer = models.IntegerField(default=0) # 0 checkin / 1 checkout / 2 full
+    type_transfer = models.IntegerField(default=0) # 1 ida / 2 vuelta / 3 full
 
 class ServiceTour(models.Model):
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)

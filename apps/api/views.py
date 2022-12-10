@@ -71,20 +71,29 @@ class ServiceDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Service.objects.all()
 	serializer_class = ServiceSerializer
 
-class ServicePropertyList(generics.ListCreateAPIView):
+class ServicePropertyReadList(generics.ListCreateAPIView):
 	queryset = ServiceProperty.objects.all()
-	serializer_class = ServicePropertySerializer
+	serializer_class = ServicePropertyReadSerializer
+	filter_backends = [DjangoFilterBackend]
+	filterset_fields = ['property']
+
+
+class ServicePropertyPostList(generics.ListCreateAPIView):
+	queryset = ServiceProperty.objects.all()
+	serializer_class = ServicePropertyPostSerializer
+	filter_backends = [DjangoFilterBackend]
+	filterset_fields = ['property']
+
 
 class ServicePropertyDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = ServiceProperty.objects.all()
-	serializer_class = ServicePropertySerializer
+	serializer_class = ServicePropertyPostSerializer
 
 class ReservationList(generics.ListCreateAPIView):
 	queryset = Reservation.objects.all()
 	serializer_class = ReservationSerializer
-	filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-	search_fields = ['code', 'property', 'user']
-	filter_fields = ['code','property','user']
+	filter_backends = [DjangoFilterBackend]
+	filterset_fields = ['code','property','user']
 
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Reservation.objects.all()

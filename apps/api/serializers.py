@@ -76,17 +76,30 @@ class UserSerializer(ModelSerializer):
 #########################################
 
 class PropertySerializer(ModelSerializer):
+	image_front_page = Base64ImageField()
+	image_1 = Base64ImageField()
+	image_2 = Base64ImageField()
+	image_3 = Base64ImageField()
+	image_4 = Base64ImageField()
+	image_5 = Base64ImageField()
+	image_6 = Base64ImageField()
 	class Meta:		 
 		model = Property 
 		fields = (
 			'pk',
 			'name',
+			'image_front_page',
 			'image_1',
 			'image_2',
 			'image_3',
 			'image_4',
+			'image_5',
+			'image_6',
 			'description',
 			'address',
+			'price',
+			'status',
+			
 
 		)
 
@@ -98,7 +111,7 @@ class ServiceSerializer(ModelSerializer):
 			'name',
 		)
 
-class ServicePropertySerializer(ModelSerializer):
+class ServicePropertyPostSerializer(ModelSerializer):
 	class Meta:		 
 		model = ServiceProperty 
 		fields = (
@@ -108,6 +121,17 @@ class ServicePropertySerializer(ModelSerializer):
 			
 		)
 
+class ServicePropertyReadSerializer(ModelSerializer):
+	service = ServiceSerializer(read_only=True)
+	class Meta:		 
+		model = ServiceProperty 
+		fields = (
+			'pk',
+			'property',
+			'service',
+			'quantity',
+			
+		)
 class ReservationSerializer(ModelSerializer):
 	class Meta:		 
 		model = Reservation 
@@ -115,6 +139,9 @@ class ReservationSerializer(ModelSerializer):
 			'pk',
 			'code',
 			'property',
+			'user',
+			'start_date',
+			'end_date',
 			
 		)
 
